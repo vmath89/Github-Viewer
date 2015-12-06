@@ -1,0 +1,40 @@
+<!--<div ng-controller='MainController as mainCtrl'>-->
+		
+		
+		
+		<form name = 'searchUser' ng-submit = 'mainCtrl.search(username)'>
+			<input type = 'search' placeholder = 'Username to search' ng-model = 'mainCtrl.username' required>
+			<input type = 'submit' value = 'search' >
+		</form>
+		{{mainCtrl.countdown}}
+		<div ng-show = 'mainCtrl.person.name' id = 'userDetails'>
+			<div>First Name: {{mainCtrl.person.name}}</div>
+			<div>Login: {{mainCtrl.person.login}}</div>
+			<div>Id: {{mainCtrl.person.id}}</div>
+			<div>
+				<img ng-src="http://www.gravatar.com/avatar/{{mainCtrl.person.gravatar_id}}" title="{{mainCtrl.person.name}}">
+			</div>
+			<select ng-model='mainCtrl.repoSortOrder'>
+				<option value = '+name'>Name</option>
+				<option value = '-stargazers_count'>Stars</option>
+				<option value = '+language'>Language</option>
+			</select>
+		</div>
+		
+		<table class="table table-striped" ng-show = 'mainCtrl.person.name'>
+  			<thead>
+  				<tr>
+  					<th>Name</th>
+  					<th>Stars<span class="glyphicon glyphicon-star" aria-hidden="true"></span></th>
+  					<th>Language</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				<tr ng-repeat = "repo in mainCtrl.repos | orderBy: mainCtrl.repoSortOrder">
+  					<td>{{repo.name}}</td>
+  					<td>{{repo.stargazers_count | number}}</td>
+  					<td>{{repo.language}}</td>
+  				</tr>
+  			</tbody>
+		</table>
+	
